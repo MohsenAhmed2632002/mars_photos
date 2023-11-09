@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FontConstants {
-  static const String fontFamily = "fira code";
+  static const String fontFamily = "Montserrat";
 }
 
 class fontWeightManager {
@@ -13,64 +13,61 @@ class fontWeightManager {
 }
 
 class Fontsize {
-  static const double s8 = 12;
+  static const double s8 = 8;
 
-  static const double s12 = 14;
+  static const double s12 = 12;
 
-  static const double s14 = 16;
-  static const double s16 = 18;
-  static const double s18 = 20;
-  static const double s20 = 22;
+  static const double s14 = 14;
+  static const double s16 = 16;
+  static const double s18 = 18;
+  static const double s20 = 20;
 
-  static const double s22 = 24;
+  static const double s22 = 22;
 }
 
 TextStyle _getTextStyle({
   required double fontsize,
   required FontWeight fontWeight,
-  // Color color,
+  required Color color,
 }) {
   return TextStyle(
     fontFamily: FontConstants.fontFamily,
     fontSize: fontsize,
-    // color: color,
+    color: color,
     fontWeight: fontWeight,
   );
 }
 
 TextStyle getRegulerTextStyle({
-  double fontSize = Fontsize.s14,
-  // required Color color,
-}) {
-  return _getTextStyle(
-      // color: color,
-       fontsize: fontSize, fontWeight: fontWeightManager.regular);
-}
-
-TextStyle getMediumTextStyle({
-  double fontSize = Fontsize.s14,
-  // required Color color,
-}) {
-  return _getTextStyle(
-      // color: color, 
-      fontsize: fontSize, fontWeight: fontWeightManager.medium);
-}
-
-TextStyle getLightTextStyle({
-  double fontSize = Fontsize.s14,
+  double fontSize = Fontsize.s12,
   required Color color,
 }) {
   return _getTextStyle(
-      // color: color,
-       fontsize: fontSize, fontWeight: fontWeightManager.light);
+      color: color, fontsize: fontSize, fontWeight: fontWeightManager.regular);
+}
+
+TextStyle getMediumTextStyle({
+  double fontSize = Fontsize.s12,
+  required Color color,
+}) {
+  return _getTextStyle(
+      color: color, fontsize: fontSize, fontWeight: fontWeightManager.medium);
+}
+
+TextStyle getLightTextStyle({
+  double fontSize = Fontsize.s12,
+  required Color color,
+}) {
+  return _getTextStyle(
+      color: color, fontsize: fontSize, fontWeight: fontWeightManager.light);
 }
 
 TextStyle getBoldTextStyle({
-  double fontSize = Fontsize.s18,
-  // required Color color,
+  double fontSize = Fontsize.s16,
+  required Color color,
 }) {
   return _getTextStyle(
-    // color: color,
+    color: color,
     fontsize: fontSize,
     fontWeight: fontWeightManager.bold,
   );

@@ -10,34 +10,26 @@ ThemeData getAppTheme(bool isDark) {
     brightness:
         isDark ? lightColorScheme.brightness : darkColorScheme.brightness,
     //////////////////
-    // primaryColor: ColorManager.primary,
-    // primaryColorLight: ColorManager.lightPrimary,
-    // primaryColorDark: ColorManager.darkPrimary,
 
     ////////////////
     cardTheme: CardTheme(
-      // color: colorManager.darkPrimary,
-      // shadowcolor: colorManager.darkGrey,
       elevation: Fontsize.s8,
     ),
 /////////////////
     appBarTheme: AppBarTheme(
-      // color: colorManager.primary,
       elevation: Fontsize.s22,
       centerTitle: true,
       iconTheme: IconThemeData(color: Colors.white),
-      //  shadowColor: colorManager.lightPrimary,
       titleTextStyle: getBoldTextStyle(
-          // color:Colors.white,
+            color: lightColorScheme.primaryContainer,
           ),
     ),
     ////////////////////
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle: getRegulerTextStyle(
-            // color: Colors.white,
+          color:  Colors.white,
             ),
-        // primary: Colors.primary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
             12,
@@ -48,23 +40,23 @@ ThemeData getAppTheme(bool isDark) {
     ////////////////////
     textTheme: TextTheme(
         subtitle1: getMediumTextStyle(
-            // color: Colors.darkGrey,
+            color: lightColorScheme.primaryContainer,
             ),
         headline1: getBoldTextStyle(
-            // color: colorManager.darkGrey,
+            color: lightColorScheme.primaryContainer,
             )),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.all(
         12,
       ),
       hintStyle: getRegulerTextStyle(
-          // color: colorManager.darkGrey,
+        color:   lightColorScheme.onSecondary
           ),
       labelStyle: getRegulerTextStyle(
-          // color: colorManager.grey,
+      color:    lightColorScheme.onSecondary
           ),
       errorStyle: getMediumTextStyle(
-          // color: colors.red,
+            color: lightColorScheme.primaryContainer,
           ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(

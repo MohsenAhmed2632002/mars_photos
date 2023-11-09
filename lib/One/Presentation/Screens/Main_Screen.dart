@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mars_photos/core/Constans/Font.dart';
+import 'package:mars_photos/core/Constans/color_schemes.g.dart';
 import 'package:sizer/sizer.dart';
 
 class MainScreen extends StatelessWidget {
@@ -61,20 +62,11 @@ class MainScreen extends StatelessWidget {
             ),
             child: Text(
               "${AppLocalizations.of(context)!.theMess}",
-              style: getMediumTextStyle(),
+              style: getMediumTextStyle(
+                color: lightColorScheme.primaryContainer,
+              ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-            ),
-            child: Icon(
-              Icons.refresh_outlined,
-              size: 22.sp,
-            ),
-          )
         ],
       ),
     );

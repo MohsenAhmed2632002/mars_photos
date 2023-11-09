@@ -29,11 +29,11 @@ class MyApp extends StatelessWidget {
           return Sizer(
             builder: (BuildContext context, Orientation orientation,
                 DeviceType deviceType) {
-              return MaterialApp(
+              return MaterialApp.router(
+                 routerConfig: router(),
+                debugShowCheckedModeBanner: false,
                 themeMode: isDark ? ThemeMode.light : ThemeMode.dark,
                 theme: ThemeData(
-                  //            brightness:
-                  // isDark ? lightColorScheme.brightness : darkColorScheme.brightness,
                   colorScheme: lightColorScheme,
                   useMaterial3: true,
                 ),
@@ -44,10 +44,7 @@ class MyApp extends StatelessWidget {
                 locale: Locale(lang),
                 localizationsDelegates: AppLocalizations.localizationsDelegates,
                 supportedLocales: AppLocalizations.supportedLocales,
-                onGenerateRoute: RoutesGenerator.getRoutes,
-                initialRoute: Routes.mainRoute,
-                debugShowCheckedModeBanner: false,
-                // theme: getAppTheme(isDark),
+               
               );
             },
           );

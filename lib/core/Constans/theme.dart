@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mars_photos/core/Constans/Colors.dart';
 import 'package:mars_photos/core/Constans/Font.dart';
+import 'package:mars_photos/core/Constans/color_schemes.g.dart';
 
 ThemeData getAppTheme() {
   return ThemeData(
-    
     // brightness: Brightness.dark,
     /////////////////
     appBarTheme: AppBarTheme(
@@ -14,19 +14,15 @@ ThemeData getAppTheme() {
       iconTheme: IconThemeData(color: Color.fromARGB(255, 1, 23, 135)),
       // shadowColor: ColorManager.darkPrimary,
       titleTextStyle: getBoldTextStyle(
-        // color: Colors.white,
+        color: lightColorScheme.primaryContainer,
       ),
     ),
     fontFamily: FontConstants.fontFamily,
     //////////////////
-    // primaryColor: ColorManager.primary,
-    // primaryColorLight: ColorManager.lightPrimary,
-    // primaryColorDark: ColorManager.darkPrimary,
     useMaterial3: true,
     ////////////////
     cardTheme: CardTheme(
-      // color: ColorManager.darkPrimary,
-      // shadowColor: ColorManager.darkGrey,
+      
       elevation: Fontsize.s8,
     ),
 
@@ -34,7 +30,7 @@ ThemeData getAppTheme() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle: getRegulerTextStyle(
-          // color: Colors.white,
+color:          lightColorScheme.primaryContainer,
         ),
         // primary: ColorManager.primary,
         shape: RoundedRectangleBorder(
@@ -47,23 +43,23 @@ ThemeData getAppTheme() {
     ////////////////////
     textTheme: TextTheme(
         subtitle1: getMediumTextStyle(
-          // color: ColorManager.darkGrey,
+          color: lightColorScheme.primaryContainer,
         ),
         headline1: getBoldTextStyle(
-          // color: ColorManager.darkGrey,
+          color: lightColorScheme.primaryContainer,
         )),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.all(
         12,
       ),
       hintStyle: getRegulerTextStyle(
-        // color: ColorManager.darkGrey,
+      color:  lightColorScheme.primaryContainer,
       ),
       labelStyle: getRegulerTextStyle(
-        // color: ColorManager.grey,
+      color:  lightColorScheme.primaryContainer,
       ),
       errorStyle: getMediumTextStyle(
-        // color: Colors.red,
+        color: lightColorScheme.primaryContainer,
       ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(),
