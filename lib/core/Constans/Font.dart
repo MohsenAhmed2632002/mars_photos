@@ -28,30 +28,32 @@ class Fontsize {
 TextStyle _getTextStyle({
   required double fontsize,
   required FontWeight fontWeight,
-  required Color color,
+  // Color color,
 }) {
   return TextStyle(
     fontFamily: FontConstants.fontFamily,
     fontSize: fontsize,
-    color: color,
+    // color: color,
     fontWeight: fontWeight,
   );
 }
 
 TextStyle getRegulerTextStyle({
   double fontSize = Fontsize.s14,
-  required Color color,
+  // required Color color,
 }) {
   return _getTextStyle(
-      color: color, fontsize: fontSize, fontWeight: fontWeightManager.regular);
+      // color: color,
+       fontsize: fontSize, fontWeight: fontWeightManager.regular);
 }
 
 TextStyle getMediumTextStyle({
   double fontSize = Fontsize.s14,
-  required Color color,
+  // required Color color,
 }) {
   return _getTextStyle(
-      color: color, fontsize: fontSize, fontWeight: fontWeightManager.medium);
+      // color: color, 
+      fontsize: fontSize, fontWeight: fontWeightManager.medium);
 }
 
 TextStyle getLightTextStyle({
@@ -59,15 +61,16 @@ TextStyle getLightTextStyle({
   required Color color,
 }) {
   return _getTextStyle(
-      color: color, fontsize: fontSize, fontWeight: fontWeightManager.light);
+      // color: color,
+       fontsize: fontSize, fontWeight: fontWeightManager.light);
 }
 
 TextStyle getBoldTextStyle({
   double fontSize = Fontsize.s18,
-  required Color color,
+  // required Color color,
 }) {
   return _getTextStyle(
-    color: color,
+    // color: color,
     fontsize: fontSize,
     fontWeight: fontWeightManager.bold,
   );
