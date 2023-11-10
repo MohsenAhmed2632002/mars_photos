@@ -64,6 +64,7 @@ class MainScreen extends StatelessWidget {
               "${AppLocalizations.of(context)!.theMess}",
               style: getMediumTextStyle(
                 color: lightColorScheme.primaryContainer,
+                fontSize: 12.sp,
               ),
             ),
           ),

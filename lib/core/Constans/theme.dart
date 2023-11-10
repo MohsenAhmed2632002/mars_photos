@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:mars_photos/core/Constans/Colors.dart';
 import 'package:mars_photos/core/Constans/Font.dart';
 import 'package:mars_photos/core/Constans/color_schemes.g.dart';
 
@@ -42,10 +41,10 @@ color:          lightColorScheme.primaryContainer,
     ),
     ////////////////////
     textTheme: TextTheme(
-        subtitle1: getMediumTextStyle(
+        titleMedium: getMediumTextStyle(
           color: lightColorScheme.primaryContainer,
         ),
-        headline1: getBoldTextStyle(
+        displayLarge: getBoldTextStyle(
           color: lightColorScheme.primaryContainer,
         )),
     inputDecorationTheme: InputDecorationTheme(
