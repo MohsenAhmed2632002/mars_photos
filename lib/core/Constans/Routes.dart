@@ -1,4 +1,4 @@
-import 'package:mars_photos/One/Presentation/Screens/Main_Screen.dart';
+import 'package:mars_photos/UI/Main_Screen.dart';
 import 'package:go_router/go_router.dart';
 
 

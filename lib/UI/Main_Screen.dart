@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:mars_photos/Data/Datasour/API.dart';
+import 'package:mars_photos/Data/Repos/Repo.dart';
 import 'package:mars_photos/core/Constans/Font.dart';
 import 'package:mars_photos/core/Constans/color_schemes.g.dart';
 import 'package:sizer/sizer.dart';
@@ -69,6 +71,9 @@ class MainScreen extends StatelessWidget {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.large(
+        onPressed: () => Repo().fetchPhoto(),
       ),
     );
   }

@@ -9,11 +9,10 @@ class API {
   API() {
     dio = Dio(
       BaseOptions(
-          baseUrl:
-              "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=DEMO_KEY",
+          baseUrl: "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity",
           connectTimeout: Duration(seconds: 5),
           receiveTimeout: Duration(seconds: 5),
-          method: "Get",
+          method: "GET",
           receiveDataWhenStatusError: true,
           queryParameters: {
             "api_key": "9Uh9y8xI0vbqAUuHYcnIBHBB5LmrTqFV6fOIOv0A"
@@ -42,19 +41,12 @@ class API {
     );
   }
 
-  Future<List<Map<String, dynamic>>> fetchPhoto(String earthDate) async {
+  Future<List<dynamic>> fetchPhoto() async {
     try {
       final Response response = await dio.request("/latest_photos");
-      final finalList = response.data["latest_photos"];
-      debugPrint(finalList);
-      return finalList;
+      return response.data["latest_photos"];
     } on Exception catch (e) {
       if (e is DioException) {
-        debugPrint("DioException");
-        debugPrint(e.message);
-        debugPrint(e.response as String?);
-        debugPrint(e.type as String?);
-        debugPrint(e.error as String?);
       } else {
         debugPrint("Normal E:$e .....");
       }
