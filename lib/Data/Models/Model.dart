@@ -1,11 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'Model.g.dart';
 
-@HiveType(typeId: 0)
+@HiveType(typeId: 1)
 @JsonSerializable(createToJson: false)
-class Marsphoto {
+class Marsphoto extends Equatable {
   @HiveField(0)
   final int id;
   @HiveField(1)
@@ -17,7 +18,7 @@ class Marsphoto {
   @JsonKey(name: "img_src")
   final String imageSrc;
   @HiveField(4)
-  @JsonKey(name: "earth_date", fromJson: toDate)
+  @JsonKey(name: "earth_date", fromJson: _toDate)
   final DateTime earthDate;
 
   Marsphoto({
@@ -30,10 +31,19 @@ class Marsphoto {
   });
   factory Marsphoto.fromJson(Map<String, dynamic> json) =>
       _$MarsphotoFromJson(json);
-  static toDate(String date) => DateTime.parse(date);
+  static _toDate(String date) => DateTime.parse(date);
+
+  @override
+  List<Object?> get props => [
+        id,
+        sol,
+        camera,
+        imageSrc,
+        earthDate,
+      ];
 }
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 2)
 @JsonSerializable(createToJson: false)
 class Camera {
   @HiveField(0)
@@ -55,5 +65,4 @@ class Camera {
   });
 
   factory Camera.fromJson(Map<String, dynamic> json) => _$CameraFromJson(json);
-  // Map<String, dynamic> toJson() => _$CameraToJson(this);
 }

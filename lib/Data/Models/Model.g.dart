@@ -8,7 +8,7 @@ part of 'Model.dart';
 
 class MarsphotoAdapter extends TypeAdapter<Marsphoto> {
   @override
-  final int typeId = 0;
+  final int typeId = 1;
 
   @override
   Marsphoto read(BinaryReader reader) {
@@ -54,7 +54,7 @@ class MarsphotoAdapter extends TypeAdapter<Marsphoto> {
 
 class CameraAdapter extends TypeAdapter<Camera> {
   @override
-  final int typeId = 1;
+  final int typeId = 2;
 
   @override
   Camera read(BinaryReader reader) {
@@ -104,7 +104,7 @@ Marsphoto _$MarsphotoFromJson(Map<String, dynamic> json) => Marsphoto(
       sol: json['sol'] as int,
       camera: Camera.fromJson(json['camera'] as Map<String, dynamic>),
       imageSrc: json['img_src'] as String,
-      earthDate: Marsphoto.toDate(json['earth_date'] ),
+      earthDate: Marsphoto._toDate(json['earth_date'] as String),
     );
 
 Camera _$CameraFromJson(Map<String, dynamic> json) => Camera(

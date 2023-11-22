@@ -20,15 +20,15 @@ ThemeData getAppTheme(bool isDark) {
       centerTitle: true,
       iconTheme: IconThemeData(color: Colors.white),
       titleTextStyle: getBoldTextStyle(
-            color: lightColorScheme.primaryContainer,
-          ),
+        color: lightColorScheme.primaryContainer,
+      ),
     ),
     ////////////////////
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle: getRegulerTextStyle(
-          color:  Colors.white,
-            ),
+          color: Colors.white,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
             12,
@@ -39,24 +39,20 @@ ThemeData getAppTheme(bool isDark) {
     ////////////////////
     textTheme: TextTheme(
         titleMedium: getMediumTextStyle(
-            color: lightColorScheme.primaryContainer,
-            ),
+          color: lightColorScheme.primaryContainer,
+        ),
         displayLarge: getBoldTextStyle(
-            color: lightColorScheme.primaryContainer,
-            )),
+          color: lightColorScheme.primaryContainer,
+        )),
     inputDecorationTheme: InputDecorationTheme(
       contentPadding: EdgeInsets.all(
         12,
       ),
-      hintStyle: getRegulerTextStyle(
-        color:   lightColorScheme.onSecondary
-          ),
-      labelStyle: getRegulerTextStyle(
-      color:    lightColorScheme.onSecondary
-          ),
+      hintStyle: getRegulerTextStyle(color: lightColorScheme.onSecondary),
+      labelStyle: getRegulerTextStyle(color: lightColorScheme.onSecondary),
       errorStyle: getMediumTextStyle(
-            color: lightColorScheme.primaryContainer,
-          ),
+        color: lightColorScheme.primaryContainer,
+      ),
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
             // color: colorManager.lightGrey
