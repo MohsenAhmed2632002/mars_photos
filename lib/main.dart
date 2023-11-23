@@ -10,14 +10,14 @@ import 'package:sizer/sizer.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox("Settings");
-  Hive.registerAdapter(RoverModelAdapter());
-  await Hive.openBox<Marsphoto>("MarsPhotos");
-  await Hive.openBox<RoverModel>("RoverDe");
 
+  Hive.registerAdapter(RoverModelAdapter());
   Hive.registerAdapter(CameraAdapter());
   Hive.registerAdapter(RoverCamerasAdapter());
   Hive.registerAdapter(MarsphotoAdapter());
+  await Hive.openBox("Settings");
+  await Hive.openBox<Marsphoto>("MarsPhotos");
+  await Hive.openBox<RoverModel>("RoverDe");
 
   runApp(
     const MyApp(),

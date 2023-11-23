@@ -40,6 +40,7 @@ class Repo {
     try {
       final data = await _api.fetchCuriosityData();
       RoverModel rover = RoverModel.fromJson(data);
+      // 
       Hive.box<RoverModel>("RoverDe").put("rover", rover);
 
       return true;

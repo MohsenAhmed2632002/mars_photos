@@ -18,10 +18,14 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final advancedDrawerController = AdvancedDrawerController();
   bool curiosityDataReady = false;
+  List<Marsphoto> marsPhotoC = [];
+
   @override
   void initState() {
     Repo().fetchCuriosityData().then((bool value) {
       curiosityDataReady = value;
+      setState(() {});
+      print("curiosityDataReady:$curiosityDataReady");
     });
     super.initState();
   }
@@ -70,122 +74,202 @@ class _MainScreenState extends State<MainScreen> {
           ),
           actions: [
             Container(
-              width: 200,
+              width: 100,
               height: 70,
               child: ListTile(
                 title: Text("${AppLocalizations.of(context)!.date}"),
                 onTap: () async {
                   var dateCh = await showDatePicker(
-                      context: context,
-                      initialDate: Hive.box<RoverModel>("RoverDe")
-                          .values
-                          .first
-                          .landingDate,
-                      firstDate: Hive.box<RoverModel>("RoverDe")
-                          .values
-                          .first
-                          .landingDate,
-                      lastDate:
-                          Hive.box<RoverModel>("RoverDe").values.first.maxDate);
-                  Repo().fetchPhotoByEarthDate(
-                    dateCh ?? DateTime.now(),
+                    context: context,
+                    initialDate:
+                        Hive.box<RoverModel>("RoverDe").values.first.maxDate,
+                    firstDate: Hive.box<RoverModel>("RoverDe")
+                        .values
+                        .first
+                        .landingDate,
+                    lastDate:
+                        Hive.box<RoverModel>("RoverDe").values.first.maxDate,
                   );
+                  marsPhotoC = await Repo().fetchPhotoByEarthDate(
+                    dateCh ??
+                        Hive.box<RoverModel>("RoverDe").values.first.maxDate,
+                  );
+                  setState(() {});
                 },
               ),
             )
           ],
         ),
-        body: Container(
-          width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height,
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.blueAccent[400],
-            boxShadow: [
-              BoxShadow(
-                color: Colors.white,
-                offset: Offset(1, 5),
-                blurRadius: 5,
+        body: !curiosityDataReady
+            ? Center(
+                child: Text(
+                  "Please Select a Date From AppBar",
+                  style: getBoldTextStyle(color: Colors.black),
+                ),
               )
-            ],
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                12,
-              ),
-            ),
-          ),
-          child: FutureBuilder<List<Marsphoto>>(
-              future: Repo().fetchPhotoByEarthDate(DateTime(2023, 10, 21)),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  List<Marsphoto> list = snapshot.data!;
-                  return Container(
-                    height: MediaQuery.sizeOf(context).height,
-                    width: MediaQuery.sizeOf(context).width,
-                    child: ListView.separated(
-                      itemCount: list.length,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: lightColorScheme.onPrimary,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(
-                                    15,
+            : Container(
+                width: MediaQuery.sizeOf(context).width,
+                height: MediaQuery.sizeOf(context).height,
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: Colors.blueAccent[400],
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.white,
+                      offset: Offset(1, 5),
+                      blurRadius: 5,
+                    )
+                  ],
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      12,
+                    ),
+                  ),
+                ),
+                child: ListView.builder(
+                  itemCount: marsPhotoC.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      height: MediaQuery.sizeOf(context).height,
+                      width: MediaQuery.sizeOf(context).width,
+                      child: ListView.separated(
+                        itemCount: marsPhotoC.length,
+                        itemBuilder: (context, index) {
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: lightColorScheme.onPrimary,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(
+                                      15,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              height: MediaQuery.sizeOf(context).height * .2,
-                              width: MediaQuery.sizeOf(context).width * .3,
-                              child: Column(
-                                children: [
-                                  Text(
-                                    "ID: \n${list[index].id}",
-                                    style: getBoldTextStyle(
-                                      color: const Color.fromARGB(255, 0, 0, 0),
+                                height: MediaQuery.sizeOf(context).height * .2,
+                                width: MediaQuery.sizeOf(context).width * .8,
+                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Container(                                width: MediaQuery.sizeOf(context).width * .4,
+
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            "ID: \n${marsPhotoC[index].id}",
+                                            style: getBoldTextStyle(
+                                              color: const Color.fromARGB(
+                                                  255, 0, 0, 0),
+                                            ),
+                                          ),
+                                          Text(
+                                            "EarthDate:\n ${marsPhotoC[index].earthDate.day}",
+                                            style: getBoldTextStyle(
+                                              color: const Color.fromARGB(
+                                                  255, 0, 0, 0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    "EarthDate:\n ${list[index].earthDate.day}",
-                                    style: getBoldTextStyle(
-                                      color: const Color.fromARGB(255, 0, 0, 0),
-                                    ),
-                                  ),
-                                ],
+                                    Container(
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              .2,
+                                      width:
+                                          MediaQuery.sizeOf(context).width * .4,
+                                      child: Image.network(
+                                        fit: BoxFit.contain,
+                                        marsPhotoC[index].imageSrc,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                            Container(
-                              height: MediaQuery.sizeOf(context).height * .2,
-                              width: MediaQuery.sizeOf(context).width * .5,
-                              child: Image.network(
-                                fit: BoxFit.contain,
-                                list[index].imageSrc,
-                              ),
-                            )
-                          ],
-                        );
-                      },
-                      separatorBuilder: (context, state) => SizedBox(
-                        height: MediaQuery.sizeOf(context).height / 10,
-                        width: MediaQuery.sizeOf(context).width,
+                            ],
+                          );
+                        },
+                        separatorBuilder: (context, state) => SizedBox(
+                          height: MediaQuery.sizeOf(context).height / 10,
+                          width: MediaQuery.sizeOf(context).width,
+                        ),
                       ),
-                    ),
-                  );
-                } else if (snapshot.connectionState ==
-                    ConnectionState.waiting) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                } else {
-                  return Center(
-                    child: Text("${snapshot.error}"),
-                  );
-                }
-              }),
-        ),
+                    );
+                  },
+                ),
+              ),
+
+        //  FutureBuilder<List<Marsphoto>>(
+        //     future: Repo().fetchPhotoByEarthDate(DateTime(2023, 10, 21)),
+        //     builder: (context, snapshot) {
+        //       if (snapshot.hasData) {
+        //         List<Marsphoto> list = snapshot.data!;
+        //         return Container(
+        //           height: MediaQuery.sizeOf(context).height,
+        //           width: MediaQuery.sizeOf(context).width,
+        //           child: ListView.separated(
+        //             itemCount: list.length,
+        //             itemBuilder: (context, index) {
+        //               return Row(
+        //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //                 children: [
+        //                   Container(
+        //                     decoration: BoxDecoration(
+        //                       color: lightColorScheme.onPrimary,
+        //                       borderRadius: BorderRadius.all(
+        //                         Radius.circular(
+        //                           15,
+        //                         ),
+        //                       ),
+        //                     ),
+        //                     height: MediaQuery.sizeOf(context).height * .2,
+        //                     width: MediaQuery.sizeOf(context).width * .3,
+        //                     child: Column(
+        //                       children: [
+        //                         Text(
+        //                           "ID: \n${list[index].id}",
+        //                           style: getBoldTextStyle(
+        //                             color: const Color.fromARGB(255, 0, 0, 0),
+        //                           ),
+        //                         ),
+        //                         Text(
+        //                           "EarthDate:\n ${list[index].earthDate.day}",
+        //                           style: getBoldTextStyle(
+        //                             color: const Color.fromARGB(255, 0, 0, 0),
+        //                           ),
+        //                         ),
+        //                       ],
+        //                     ),
+        //                   ),
+        //                   Container(
+        //                     height: MediaQuery.sizeOf(context).height * .2,
+        //                     width: MediaQuery.sizeOf(context).width * .5,
+        //                     child: Image.network(
+        //                       fit: BoxFit.contain,
+        //                       list[index].imageSrc,
+        //                     ),
+        //                   )
+        //                 ],
+        //               );
+        //             },
+        //             separatorBuilder: (context, state) => SizedBox(
+        //               height: MediaQuery.sizeOf(context).height / 10,
+        //               width: MediaQuery.sizeOf(context).width,
+        //             ),
+        //           ),
+        //         );
+        //       } else if (snapshot.connectionState ==
+        //           ConnectionState.waiting) {
+        //         return Center(
+        //           child: CircularProgressIndicator(),
+        //         );
+        //       } else {
+        //         return Center(
+        //           child: Text("${snapshot.error}"),
+        //         );
+        //       }
+        //     }),
       ),
     );
   }

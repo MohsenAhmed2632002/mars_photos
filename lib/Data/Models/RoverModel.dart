@@ -54,6 +54,8 @@ class RoverModel extends Equatable {
       ];
 }
 
+
+
 @HiveType(typeId: 4)
 @JsonSerializable(createToJson: false)
 class RoverCameras {

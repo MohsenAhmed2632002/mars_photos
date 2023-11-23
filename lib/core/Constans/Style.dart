@@ -16,7 +16,7 @@ ThemeData getAppTheme(bool isDark) {
     ),
 /////////////////
     appBarTheme: AppBarTheme(
-      elevation: Fontsize.s22,
+      elevation: Fontsize.s16,
       centerTitle: true,
       iconTheme: IconThemeData(color: Colors.white),
       titleTextStyle: getBoldTextStyle(
