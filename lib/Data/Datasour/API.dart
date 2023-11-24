@@ -3,8 +3,10 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
+
 // part 'RoverApi.dart';
-  late Dio dio;
+late Dio dio;
+
 class API {
   API() {
     dio = Dio(
@@ -70,8 +72,7 @@ class API {
     return [];
   }
 
-  
-  Future<Map<String,dynamic>> fetchCuriosityData() async {
+  Future<Map<String, dynamic>> fetchCuriosityData() async {
     try {
       final Response response = await dio.request("");
       return response.data["rover"];
@@ -82,7 +83,7 @@ class API {
       }
       ;
     }
-    
+
     return {};
   }
 }
