@@ -8,7 +8,7 @@ part of 'RoverModel.dart';
 
 class RoverModelAdapter extends TypeAdapter<RoverModel> {
   @override
-  final int typeId = 3;
+  final int typeId = 2;
 
   @override
   RoverModel read(BinaryReader reader) {
@@ -63,7 +63,7 @@ class RoverModelAdapter extends TypeAdapter<RoverModel> {
 
 class RoverCamerasAdapter extends TypeAdapter<RoverCameras> {
   @override
-  final int typeId = 4;
+  final int typeId = 3;
 
   @override
   RoverCameras read(BinaryReader reader) {

@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -10,24 +9,31 @@ import 'package:mars_photos/Logic/cubit/marsphotosbloc_OBS.dart';
 import 'package:mars_photos/core/Constans/Routes.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mars_photos/core/Constans/color_schemes.g.dart';
+import 'package:mars_photos/core/Constans/AppStrings.dart';
+
 import 'package:sizer/sizer.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Hive.initFlutter();
-  Bloc.observer = SimpleBlocObserver();
-
-  Hive.registerAdapter(RoverModelAdapter());
-  Hive.registerAdapter(CameraAdapter());
-  Hive.registerAdapter(RoverCamerasAdapter());
-  Hive.registerAdapter(MarsphotoAdapter());
-  await Hive.openBox("Settings");
-  await Hive.openBox<Marsphoto>("MarsPhotos");
-  await Hive.openBox<RoverModel>("RoverDe");
+  await HiveInitNow();
 
   runApp(
     const MyApp(),
   );
+}
+
+Future<void> HiveInitNow() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  
+  Hive.registerAdapter(RoverModelAdapter());
+  Hive.registerAdapter(CameraAdapter());
+  Hive.registerAdapter(RoverCamerasAdapter());
+  Hive.registerAdapter(MarsphotoAdapter());
+  await Hive.openBox(AppStrings.mySettings);
+  await Hive.openBox<Marsphoto>(AppStrings.myMarsPhotos);
+  await Hive.openBox<RoverModel>(AppStrings.myRoverDetails);
+  Bloc.observer = SimpleBlocObserver();
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -40,12 +46,12 @@ class MyApp extends StatelessWidget {
         repo: Repo(),
       ),
       child: ValueListenableBuilder(
-          valueListenable: Hive.box("Settings").listenable(),
+          valueListenable: Hive.box(AppStrings.mySettings).listenable(),
           builder: (_, box, __) {
             final bool isDark =
-                Hive.box("Settings").get("isDark", defaultValue: false);
+                Hive.box(AppStrings.mySettings).get(AppStrings.myDark, defaultValue: false);
             final String lang =
-                Hive.box("Settings").get("lang", defaultValue: "en");
+                Hive.box(AppStrings.mySettings).get(AppStrings.myLanuage, defaultValue: AppStrings.myEnglish);
             return Sizer(
               builder: (BuildContext context, Orientation orientation,
                   DeviceType deviceType) {

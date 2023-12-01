@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter/material.dart';
 
-// part 'RoverApi.dart';
 late Dio dio;
 
 class API {

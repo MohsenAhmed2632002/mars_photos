@@ -8,7 +8,7 @@ part of 'Model.dart';
 
 class MarsphotoAdapter extends TypeAdapter<Marsphoto> {
   @override
-  final int typeId = 1;
+  final int typeId = 0;
 
   @override
   Marsphoto read(BinaryReader reader) {
@@ -54,7 +54,7 @@ class MarsphotoAdapter extends TypeAdapter<Marsphoto> {
 
 class CameraAdapter extends TypeAdapter<Camera> {
   @override
-  final int typeId = 2;
+  final int typeId = 1;
 
   @override
   Camera read(BinaryReader reader) {

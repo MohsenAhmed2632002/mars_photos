@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:hive/hive.dart';
 import 'package:mars_photos/Data/Models/RoverModel.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'package:mars_photos/core/Constans/AppStrings.dart';
 import 'package:mars_photos/core/Constans/Font.dart';
 import 'package:mars_photos/core/Constans/color_schemes.g.dart';
 
@@ -17,32 +19,53 @@ class Landing extends StatelessWidget {
           "Landing",
         ),
       ),
-      body: Center(
-        child: ListTile(
-          tileColor: lightColorScheme.primary,
-          title: Text(
-            "${AppLocalizations.of(context)!.date}",
-            style: getBoldTextStyle(color: lightColorScheme.onPrimary),
-          ),
-          onTap: () async {
-            var dateCh = await showDatePicker(
-              context: context,
-              initialDate:
-                  Hive.box<RoverModel>("RoverDe").values.first.maxDate ??
-                      DateTime.now(),
-              firstDate:
-                  Hive.box<RoverModel>("RoverDe").values.first.landingDate,
-              lastDate: Hive.box<RoverModel>("RoverDe").values.first.maxDate,
-            );
-
-            if (dateCh != null) {
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ListTile(
+            tileColor: lightColorScheme.primary,
+            title: Text(
+              "${AppLocalizations.of(context)!.lastphoto}",
+              style: getBoldTextStyle(color: lightColorScheme.onPrimary),
+            ),
+            onTap: () {
               context.push(
                 "/MainScreen",
-                extra: dateCh,
               );
-            }
-          },
-        ),
+            },
+          ),
+          ListTile(
+            tileColor: lightColorScheme.primary,
+            title: Text(
+              "${AppLocalizations.of(context)!.date}",
+              style: getBoldTextStyle(color: lightColorScheme.onPrimary),
+            ),
+            onTap: () async {
+              var dateCh = await showDatePicker(
+                context: context,
+                initialDate: Hive.box<RoverModel>(AppStrings.myRoverDetails)
+                        .values
+                        .first
+                        .maxDate ,
+                firstDate: Hive.box<RoverModel>(AppStrings.myRoverDetails)
+                    .values
+                    .first
+                    .landingDate,
+                lastDate: Hive.box<RoverModel>(AppStrings.myRoverDetails)
+                    .values
+                    .first
+                    .maxDate,
+              );
+
+              if (dateCh != null) {
+                context.push(
+                  "/MainScreen",
+                  extra: dateCh,
+                );
+              }
+            },
+          ),
+        ],
       ),
     );
   }

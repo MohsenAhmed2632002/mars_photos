@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'Model.g.dart';
 
-@HiveType(typeId: 1)
+@HiveType(typeId: 0)
 @JsonSerializable(createToJson: false)
 class Marsphoto extends Equatable {
   @HiveField(0)
@@ -43,7 +43,7 @@ class Marsphoto extends Equatable {
       ];
 }
 
-@HiveType(typeId: 2)
+@HiveType(typeId: 1)
 @JsonSerializable(createToJson: false)
 class Camera {
   @HiveField(0)

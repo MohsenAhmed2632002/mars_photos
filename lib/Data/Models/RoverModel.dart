@@ -3,7 +3,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'RoverModel.g.dart';
 
-@HiveType(typeId: 3)
+@HiveType(typeId: 2)
 @JsonSerializable(createToJson: false)
 class RoverModel extends Equatable {
   @HiveField(0)
@@ -19,9 +19,7 @@ class RoverModel extends Equatable {
   @HiveField(4)
   final String status;
   @HiveField(5)
-  @JsonKey(
-    name: "max_sol",
-  )
+  @JsonKey(name: "max_sol")
   final int maxSol;
   @HiveField(6)
   @JsonKey(name: "max_date", fromJson: _toDate)
@@ -54,9 +52,7 @@ class RoverModel extends Equatable {
       ];
 }
 
-
-
-@HiveType(typeId: 4)
+@HiveType(typeId: 3)
 @JsonSerializable(createToJson: false)
 class RoverCameras {
   @HiveField(0)

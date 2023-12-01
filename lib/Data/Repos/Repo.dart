@@ -5,6 +5,7 @@ import 'package:mars_photos/Data/Datasour/Local.dart';
 import 'package:mars_photos/Data/Models/Model.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:mars_photos/Data/Models/RoverModel.dart';
+import 'package:mars_photos/core/Constans/AppStrings.dart';
 
 class Repo {
   late API _api;
@@ -41,7 +42,7 @@ class Repo {
       final data = await _api.fetchCuriosityData();
       RoverModel rover = RoverModel.fromJson(data);
     
-      Hive.box<RoverModel>("RoverDe").put("rover", rover);
+      Hive.box<RoverModel>(AppStrings.myRoverDetails).put(AppStrings.myRoverKey, rover);
 
       return true;
     } on Exception catch (e) {

@@ -1,3 +1,4 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -7,6 +8,7 @@ import 'package:mars_photos/Logic/cubit/marsphotobloc_cubit.dart';
 import 'package:mars_photos/core/Constans/Font.dart';
 import 'package:mars_photos/core/Constans/color_schemes.g.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:mars_photos/core/Constans/AppStrings.dart';
 
 class MainScreen extends StatelessWidget {
   final DateTime? earthDate;
@@ -26,19 +28,22 @@ class MainScreen extends StatelessWidget {
             ListTile(
               title: Text("${AppLocalizations.of(context)!.changeTheme}"),
               trailing: Switch(
-                value: Hive.box("Settings").get("isDark", defaultValue: false),
+                value: Hive.box(AppStrings.mySettings)
+                    .get(AppStrings.myDark, defaultValue: false),
                 onChanged: (v) {
-                  Hive.box("Settings").put("isDark", v);
+                  Hive.box(AppStrings.mySettings).put(AppStrings.myDark, v);
                 },
               ),
             ),
             ListTile(
               title: Text("${AppLocalizations.of(context)!.changelanguage}"),
               trailing: Switch(
-                value: Hive.box("Settings").get("lang", defaultValue: "en") ==
-                    "en",
+                value: Hive.box(AppStrings.mySettings).get(AppStrings.myLanuage,
+                        defaultValue: AppStrings.myEnglish) ==
+                    AppStrings.myEnglish,
                 onChanged: (v) {
-                  Hive.box("Settings").put("lang", v ? "en" : "ar");
+                  Hive.box(AppStrings.mySettings).put(AppStrings.myLanuage,
+                      v ? AppStrings.myEnglish : AppStrings.myArbic);
                 },
               ),
             )
@@ -57,54 +62,62 @@ class MainScreen extends StatelessWidget {
             ),
           ),
         ),
-        body:
-             BlocBuilder<MarsphotoblocCubit, MarsphotoblocState>(
-              buildWhen: (previous, current) =>
-                  current is MarsphotoblocLoaded,
-              builder: (context, state) {
-            return
-            Container(
-          width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height,
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.blueAccent[400],
-            boxShadow: [
-              BoxShadow(
-                color: Colors.white,
-                offset: Offset(1, 5),
-                blurRadius: 5,
-              )
-            ],
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                12,
+        body: BlocBuilder<MarsphotoblocCubit, MarsphotoblocState>(
+          buildWhen: (previous, current) =>
+              previous is MarsphotoblocRoverLoading &&
+              current is MarsphotoblocRoverLoaded,
+          builder: (context, state) {
+            return Container(
+              width: MediaQuery.sizeOf(context).width,
+              height: MediaQuery.sizeOf(context).height,
+              padding: EdgeInsets.all(10),
+              margin: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.blueAccent[400],
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.white,
+                    offset: Offset(1, 5),
+                    blurRadius: 5,
+                  )
+                ],
+                borderRadius: BorderRadius.all(
+                  Radius.circular(
+                    12,
+                  ),
+                ),
               ),
-            ),
-          ),
-          child: BlocBuilder<MarsphotoblocCubit, MarsphotoblocState>(
-            builder: (BuildContext context, state) {
-              if (state is MarsphotoblocLoaded) {
-                List<Marsphoto> marsPhotoC = state.listFromCuibt;
-                return LoadedWidget(marsPhotoC: marsPhotoC);
-              }
-              else if (state is MarsphotoblocRoverLoading) {
-                return Center(
+              child: ConditionalBuilder(
+                fallback: (context) => Center(
                   child: CircularProgressIndicator(),
-                );
-              }
-
-              else if (state is MarsphotoblocRoverEr) {
-                return Center(
-                  child: Text("${state.Mess}"),
-                );
-              }
-              return SizedBox(
-                child: Text("SizedBox"),
-              );
-            },
-          ),
+                ),
+                condition: state is MarsphotoblocRoverLoaded,
+                builder: (context) {
+                  return BlocBuilder<MarsphotoblocCubit, MarsphotoblocState>(
+                      buildWhen: (previous, current) =>
+                          current is MarsphotoblocLoaded,
+                      builder: (BuildContext context, state) {
+                        // if (state is MarsphotoblocLoaded) {
+                        final List<Marsphoto> marsPhotoC =
+                            (state as MarsphotoblocLoaded).listFromCuibt;
+                        return LoadedWidget(marsPhotoC: marsPhotoC);
+                      }
+                      // else if (state is MarsphotoblocRoverLoading) {
+                      //   return Center(
+                      //     child: CircularProgressIndicator(),
+                      //   );
+                      // } else if (state is MarsphotoblocRoverEr) {
+                      //   return Center(
+                      //     child: Text("${state.Mess}"),
+                      //   );
+                      // }
+                      // return SizedBox(
+                      //   child: Text("SizedBox"),
+                      // );
+                      // },
+                      );
+                },
+              ),
             );
           },
         ),
