@@ -88,35 +88,21 @@ class MainScreen extends StatelessWidget {
                 ),
               ),
               child: ConditionalBuilder(
-                fallback: (context) => Center(
-                  child: CircularProgressIndicator(),
-                ),
-                condition: state is MarsphotoblocRoverLoaded,
+                condition:
+                    state is MarsphotoblocLoaded,
                 builder: (context) {
                   return BlocBuilder<MarsphotoblocCubit, MarsphotoblocState>(
                       buildWhen: (previous, current) =>
                           current is MarsphotoblocLoaded,
                       builder: (BuildContext context, state) {
-                        // if (state is MarsphotoblocLoaded) {
                         final List<Marsphoto> marsPhotoC =
                             (state as MarsphotoblocLoaded).listFromCuibt;
                         return LoadedWidget(marsPhotoC: marsPhotoC);
-                      }
-                      // else if (state is MarsphotoblocRoverLoading) {
-                      //   return Center(
-                      //     child: CircularProgressIndicator(),
-                      //   );
-                      // } else if (state is MarsphotoblocRoverEr) {
-                      //   return Center(
-                      //     child: Text("${state.Mess}"),
-                      //   );
-                      // }
-                      // return SizedBox(
-                      //   child: Text("SizedBox"),
-                      // );
-                      // },
-                      );
+                      });
                 },
+                fallback: (context) => Center(
+                  child: CircularProgressIndicator(),
+                ),
               ),
             );
           },

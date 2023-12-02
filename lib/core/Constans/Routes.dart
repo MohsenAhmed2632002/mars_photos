@@ -21,8 +21,7 @@ GoRouter router() {
         builder: (context, state) => BlocProvider<MarsphotoblocCubit>.value(
           value: MarsphotoblocCubit(repo: Repo()),
           child: MainScreen(
-            earthDate: state.extra as DateTime 
-            // ?? DateTime.now() as DateTime,
+         
           ),
         ),
       ),

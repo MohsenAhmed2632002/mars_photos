@@ -46,16 +46,16 @@ class Landing extends StatelessWidget {
                 initialDate: Hive.box<RoverModel>(AppStrings.myRoverDetails)
                         .values
                         .first
-                        .maxDate ,
+                        .maxDate??DateTime.now() ,
                 firstDate: Hive.box<RoverModel>(AppStrings.myRoverDetails)
                     .values
                     .first
-                    .landingDate,
+                    .landingDate??DateTime.now(),
                 lastDate: Hive.box<RoverModel>(AppStrings.myRoverDetails)
                     .values
                     .first
-                    .maxDate,
-              );
+                    .maxDate??DateTime.now(),
+              )??DateTime.now();
 
               if (dateCh != null) {
                 context.push(
