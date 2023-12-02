@@ -18,6 +18,7 @@ class MainScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<MarsphotoblocCubit>().fetchDatePhotoData(earthDate);
     return AdvancedDrawer(
       controller: advancedDrawerController,
       animationCurve: Curves.easeInToLinear,
@@ -88,8 +89,7 @@ class MainScreen extends StatelessWidget {
                 ),
               ),
               child: ConditionalBuilder(
-                condition:
-                    state is MarsphotoblocLoaded,
+                condition: state is MarsphotoblocLoaded,
                 builder: (context) {
                   return BlocBuilder<MarsphotoblocCubit, MarsphotoblocState>(
                       buildWhen: (previous, current) =>
